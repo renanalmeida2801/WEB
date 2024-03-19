@@ -1,0 +1,61 @@
+.container{
+    display: flex; 
+    justify-content: center;
+}
+.box{
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    width: calc(15% - 10px);
+}
+
+h1{
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+h3{
+    text-align: center;
+}
+.pesoacima{
+    text-align: center;
+    color: red;
+}
+.peso{
+    text-align: center;
+    color: green;
+}
+.pesoabaixo{
+    text-align: center;
+    color: gold;
+}
+p{
+    font-size: 24px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+img{
+    align-content: center;
+}
+.atividade01{
+    align-items: center;
+}
+
+.hero {
+    margin-right: 30px;
+}
+.enemy{
+    margin-left: 30px;
+}
+
+.arena {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+.arena h1{
+    align-self: center;
+}
