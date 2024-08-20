@@ -50,7 +50,7 @@ function Questao04() {
 
     return (
         <div>
-            <h1>Questao 03</h1>
+            <h1>Questao 04</h1>
             <h3>A Capital {nomeMin} tem a menor população com: {minimo} habitantes</h3>
             <h3>Capital {nomeMax} tem a maior população com: {maximo} habitantes</h3>
         </div>
