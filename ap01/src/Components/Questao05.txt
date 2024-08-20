@@ -1,0 +1,107 @@
+Props Drilling é quando precisamos entregar uma mensagem que precisa passar por várias pessoas
+antes de chegar no destinatário correto. Em outras palavras é quando um componente filho precisa de alguma props
+e para isso vamos passando por componentes intermediários que não precisam destas props. Eles apenas repassam a 
+props para o próxmo componente.
+Para evitar o Drilling utilizamos o React.Context.
+O Context é uma forma de passar dados entre a árvore de componentes sem precisar passar props manualmente
+em cada nível. Ele evita o drilling ao permitir que você disponibilize dados de um "nível superior" da árvore de
+componentes e acesse esses dados diretamente de qualquer componente "filho" sem a necessidade de repassar as
+props manualmente.
+
+EXEMPLO:
+CODIGO COM PROPS DRILLING
+Nesse exemplo, o objeto usuario precisa ser passado por várias camadas de componentes, 
+mesmo que alguns desses componentes não façam uso direto dele.
+function App() {
+  const usuario = { nome: "João", autenticado: true };
+
+  return (
+    <div>
+      <Navbar usuario={usuario} />
+      <Conteudo usuario={usuario} />
+    </div>
+  );
+}
+
+function Navbar({ usuario }) {
+  return (
+    <nav>
+      <p>Bem-vindo, {usuario.nome}</p>
+      <Menu usuario={usuario} />
+    </nav>
+  );
+}
+
+function Menu({ usuario }) {
+  return (
+    <ul>
+      {usuario.autenticado ? <li>Sair</li> : <li>Entrar</li>}
+    </ul>
+  );
+}
+
+function Conteudo({ usuario }) {
+  return (
+    <div>
+      <h1>Conteúdo Principal</h1>
+      {usuario.autenticado && <p>Bem-vindo ao seu painel, {usuario.nome}</p>}
+    </div>
+  );
+}
+
+COM CONTEXT:
+import React, { useContext, createContext } from "react";
+
+// Criando o contexto para o usuário
+const UsuarioContext = createContext();
+
+function App() {
+  const usuario = { nome: "João", autenticado: true };
+
+  return (
+    // Provedor do contexto que disponibiliza o objeto usuário para toda a árvore de componentes
+    <UsuarioContext.Provider value={usuario}>
+      <div>
+        <Navbar />
+        <Conteudo />
+      </div>
+    </UsuarioContext.Provider>
+  );
+}
+
+function Navbar() {
+  return (
+    <nav>
+      <p>Bem-vindo, <NomeUsuario /></p>
+      <Menu />
+    </nav>
+  );
+}
+
+// Componente que exibe o nome do usuário utilizando o contexto
+function NomeUsuario() {
+  const usuario = useContext(UsuarioContext);
+  return usuario.nome;
+}
+
+function Menu() {
+  const usuario = useContext(UsuarioContext);
+  return (
+    <ul>
+      {usuario.autenticado ? <li>Sair</li> : <li>Entrar</li>}
+    </ul>
+  );
+}
+
+function Conteudo() {
+  const usuario = useContext(UsuarioContext);
+  return (
+    <div>
+      <h1>Conteúdo Principal</h1>
+      {usuario.autenticado && <p>Bem-vindo ao seu painel, {usuario.nome}</p>}
+    </div>
+  );
+}
+
+export default App;
+
